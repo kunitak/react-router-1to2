@@ -5,13 +5,14 @@ var Link = ReactRouter.Link;
 
 //ヘッダの定義
 var Header = React.createClass({
-  mixins: [ History ],
-  
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
   handleClick: function(e){
   	/* ログアウト処理 */
     
     //ログイン画面へ
-    this.history.pushState(null, '/');
+    this.context.router.push('/');
   },
   render: function(){
     return (
