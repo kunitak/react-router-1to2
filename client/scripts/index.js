@@ -4,6 +4,7 @@ var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var History = ReactRouter.History;
+var hashHistory = ReactRouter.hashHistory;
 var ReactDOM = require('react-dom');
 var Header = require('./views/header.jsx');
 var Body = require('./views/body.jsx');
@@ -21,14 +22,15 @@ var Index = React.createClass({
 });
 
 var Top = React.createClass({
-  mixins: [ History ],
-
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
   handleSubmit:function(e){
     e.preventDefault();
     /* ログイン処理 */
 
     //ポータルページへ
-    this.history.pushState(null, '/portal');
+    this.context.router.push({pathname: '/portal', query: '', state: ''});
   },
   render:function(){
     return (
@@ -74,6 +76,6 @@ var Routes = (
 );
 
 ReactDOM.render(
-  <Router>{Routes}</Router>,
+  <Router history={hashHistory}>{Routes}</Router>,
   document.getElementById('content')
 );
